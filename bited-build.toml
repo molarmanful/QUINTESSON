@@ -1,12 +1,9 @@
-# Fully annotated config:
-# https://github.com/molarmanful/bited-utils/blob/main/bited-build/bited-build.toml
-
 [[fonts]]
 name = "QUINTESSON"
 xs = [2, 3]
 ttfix = '''
 f.os2_version = 4
-f.os2_vendor = "XYZ"
+f.os2_vendor = "BenP"
 f.os2_panose = (0, 0, 0, 9, 0, 0, 0, 0, 0, 0)
 f.os2_weight_width_slope_only = True
 '''

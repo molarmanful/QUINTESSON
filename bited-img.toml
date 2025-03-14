@@ -1,6 +1,3 @@
-# Fully annotated config:
-# https://github.com/molarmanful/bited-utils/blob/main/bited-img/bited-img.toml
-
 [[fonts]]
 name = "QUINTESSON"
 
