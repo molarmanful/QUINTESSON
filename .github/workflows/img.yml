@@ -24,8 +24,8 @@ jobs:
         with:
           fetch-depth: 0
       - uses: DeterminateSystems/nix-installer-action@main
-      # - uses: DeterminateSystems/flakehub-cache-action@main
-      - run: nix run .#FIXME-img
+      - uses: DeterminateSystems/flakehub-cache-action@main
+      - run: nix run .#QUINTESSON-img
       - name: push
         uses: stefanzweifel/git-auto-commit-action@v5
         with:

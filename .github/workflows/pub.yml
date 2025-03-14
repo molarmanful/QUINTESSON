@@ -9,14 +9,14 @@ jobs:
   pub:
     runs-on: ubuntu-latest
     permissions:
-      # id-token: write
+      id-token: write
       contents: write
     steps:
       - uses: actions/checkout@v4
         with:
           ref: main
       - uses: DeterminateSystems/nix-installer-action@main
-      # - uses: DeterminateSystems/flakehub-cache-action@main
+      - uses: DeterminateSystems/flakehub-cache-action@main
       - run: printf '%s' '${{ github.ref_name }}' | sed 's/^v//' > VERSION
       - run: nix build .#FIXME-release
       - name: push
@@ -29,9 +29,9 @@ jobs:
         with:
           file: result/share/fonts/*
           file_glob: true
-      # - uses: DeterminateSystems/flakehub-push@main
-      #   with:
-      #     visibility: public
-      #     name: ghost/FIXME
-      #     tag: ${{ inputs.tag }}
-      #     include-output-paths: true
+      - uses: DeterminateSystems/flakehub-push@main
+        with:
+          visibility: public
+          name: molarmanful/QUINTESSON
+          tag: ${{ inputs.tag }}
+          include-output-paths: true
