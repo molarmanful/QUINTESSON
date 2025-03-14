@@ -1,0 +1,20 @@
+# Fully annotated config:
+# https://github.com/molarmanful/bited-utils/blob/main/bited-build/bited-build.toml
+
+[[fonts]]
+name = "QUINTESSON"
+xs = [2, 3]
+ttfix = '''
+f.os2_version = 4
+f.os2_vendor = "XYZ"
+f.os2_panose = (0, 0, 0, 9, 0, 0, 0, 0, 0, 0)
+f.os2_weight_width_slope_only = True
+'''
+
+[fonts.sfnt]
+"UniqueID" = "molarmanful: QUINTESSON: 2025"
+"Vendor URL" = "https://github.com/molarmanful/QUINTESSON"
+"Designer" = "molarmanful"
+"Designer URL" = "https://github.com/molarmanful/QUINTESSON"
+"License" = "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://scripts.sil.org/OFL"
+"License URL" = "https://scripts.sil.org/OFL"
