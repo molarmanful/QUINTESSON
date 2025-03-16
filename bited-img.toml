@@ -1,6 +1,9 @@
 [[fonts]]
 name = "QUINTESSON"
 
+[fonts.chars]
+width = 40
+
 [fonts.clrs]
 bg = "#161616" # background
 fg = "#ffffff" # foreground
