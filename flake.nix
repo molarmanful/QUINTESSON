@@ -2,69 +2,55 @@
   description = "A tall, many-faced bitmap megafont to conquer the galaxy with.";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-unstable";
-    systems.url = "systems";
-    flake-parts.url = "github:hercules-ci/flake-parts";
-    devshell.url = "github:numtide/devshell";
-    bited-utils.url = "github:molarmanful/bited-utils";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
+    bited-utils = {
+      url = "github:molarmanful/bited-utils";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+      };
+    };
   };
 
   outputs =
-    inputs@{ systems, flake-parts, ... }:
+    inputs@{ flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
-      imports = [
-        inputs.devshell.flakeModule
-        inputs.bited-utils.flakeModule
-      ];
-      systems = import systems;
+      imports = [ inputs.bited-utils.flakeModule ];
+      systems = inputs.nixpkgs.lib.systems.flakeExposed;
       perSystem =
-        { config, pkgs, ... }:
         {
-
+          config,
+          pkgs,
+          ...
+        }:
+        {
           bited-utils = {
             name = "QUINTESSON";
             version = builtins.readFile ./VERSION;
             src = ./.;
           };
 
-          devshells.default = {
-
-            commands = with pkgs; [
-              {
-                package = nil;
-                category = "lsp";
-              }
-              {
-                package = nixd;
-                category = "lsp";
-              }
-              {
-                package = nixfmt-rfc-style;
-                category = "formatter";
-              }
-              {
-                package = statix;
-                category = "linter";
-              }
-              {
-                package = deadnix;
-                category = "linter";
-              }
-              { package = taplo; }
-              {
-                package = marksman;
-                category = "lsp";
-              }
-              {
-                package = mdformat;
-                category = "formatter";
-              }
-              { package = config.bited-utils.bited-clr; }
-            ];
-
+          devShells.default = pkgs.mkShell {
             packages = with pkgs; [
-              python313Packages.mdformat-gfm
-              python313Packages.mdformat-gfm-alerts
+              config.bited-utils.bited-clr
+              taplo
+              # lsps
+              nil
+              marksman
+              # formatters
+              nixfmt
+              mdformat
+              yamlfmt
+              python3Packages.mdformat-gfm
+              python3Packages.mdformat-gfm-alerts
+              # linters
+              statix
+              deadnix
+              actionlint
             ];
           };
         };
